@@ -50,7 +50,7 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="42dp"
                 android:layout_marginTop="16dp"
-                android:text="Falcon 9 Block 5 | Starlink Group 6-18"
+                android:text="@string/dummy_rv_title"
                 android:maxLines="2"
                 android:ellipsize="end"
                 android:textSize="18sp"

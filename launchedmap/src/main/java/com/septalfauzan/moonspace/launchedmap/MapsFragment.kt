@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -31,12 +32,10 @@ import java.lang.Exception
 import javax.inject.Inject
 
 class MapsFragment : Fragment() {
+
     @Inject
     lateinit var factory: ViewModelFactory
     private var component: LaunchedMapComponent? = null
-    private val launchedMapViewModel: LaunchedMapViewModel by viewModels {
-        factory
-    }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private val callback = OnMapReadyCallback { googleMap ->
@@ -50,7 +49,7 @@ class MapsFragment : Fragment() {
         )
 
         googleMap.setMapStyle(mapStyle)
-
+        val launchedMapViewModel: LaunchedMapViewModel by viewModels { factory }
         launchedMapViewModel.upComingLaunch.observe(viewLifecycleOwner) { resource ->
             if (resource.data != null) {
                 when (resource) {
@@ -89,7 +88,8 @@ class MapsFragment : Fragment() {
 
     private fun createIconMarker(): BitmapDescriptor {
         try {
-            val drawable = resources.getDrawable(
+            val drawable = ResourcesCompat.getDrawable(
+                resources,
                 com.septalfauzan.moonspace.core.R.drawable.baseline_rocket_24,
                 null
             )
@@ -99,11 +99,11 @@ class MapsFragment : Fragment() {
             val bitmap: Bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
 
             val canvas = Canvas(bitmap)
-            drawable.setBounds(0, 0, canvas.width, canvas.height)
-            drawable.draw(canvas)
+            drawable?.setBounds(0, 0, canvas.width, canvas.height)
+            drawable?.draw(canvas)
 
             return BitmapDescriptorFactory.fromBitmap(bitmap)
-        }catch (e: Exception){
+        } catch (e: Exception) {
             throw e
         }
     }

@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.septalfauzan.moonspace.R
@@ -18,9 +19,10 @@ import androidx.navigation.fragment.findNavController
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
-    private val homeViewModel: HomeViewModel by viewModels()
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +36,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity == null) return
-
+        val homeViewModel: HomeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         val rvAdapter = ScheduleAdapter()
         with(binding.rvContainer) {
             layoutManager = LinearLayoutManager(context)
@@ -84,6 +86,11 @@ class HomeFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) =
                 onFilter(s.toString())
         }
+
+    override fun onDestroy() {
+        super.onDestroy()
+//        homeViewModel = null
+    }
 }
 
 private fun navigateToDetail(id: String, navController: NavController) {

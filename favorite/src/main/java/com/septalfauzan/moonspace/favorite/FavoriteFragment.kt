@@ -20,12 +20,11 @@ import dagger.hilt.android.EntryPointAccessors
 import javax.inject.Inject
 
 class FavoriteFragment : Fragment() {
+
     @Inject
     lateinit var factory: ViewModelFactory
     private var component: FavoriteComponent? = null
-    private val favoriteViewModel: FavoriteViewModel by viewModels{
-        factory
-    }
+
 
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
@@ -48,6 +47,9 @@ class FavoriteFragment : Fragment() {
         with(binding.rvContainer){
             layoutManager = LinearLayoutManager(context)
             adapter = rvAdapter
+        }
+        val favoriteViewModel: FavoriteViewModel by viewModels{
+            factory
         }
 
         favoriteViewModel.getBookmarkedLaunches()

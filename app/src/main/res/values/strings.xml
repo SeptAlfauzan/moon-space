@@ -1,10 +1,35 @@
 <resources>
     <string name="app_name">Moon Space</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="navigation_drawer_open">Open navbar</string>
     <string name="navigation_drawer_close">Close navbar</string>
     <string name="title_launchedmap">Launched Map</string>
     <string name="title_favorite">Favorite</string>
     <string name="no_data">No Data</string>
+    <string name="search_button">search_button</string>
+    <string name="image_rocket_bg">image rocket bg</string>
+    <string name="bookmark_button">bookmark button</string>
+    <string name="notification_button">notification button</string>
+    <string name="home">Home</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="launch_location">Launch location</string>
+    <string name="search">search</string>
+    <string name="bookmarked_launch">Bookmarked Launch</string>
+    <string name="home_image_bg">home image bg</string>
+    <string name="bookmark_image_bg">bookmark image bg</string>
+    <string name="moonshoot_icon">moonspace icon</string>
+    <string name="dummy_detail_title">Falcon 9 Block 5 | Starlink Group 6-18</string>
+    <string name="dummy_detail_launched_time">🔴 2023-09-24T03:38:3</string>
+    <string name="launched_at">Launched at</string>
+    <string name="rocket_info">Rocket info</string>
+    <string name="programs">Programs</string>
+    <string name="moon_shoot">Moon Shoot</string>
+    <string name="name">Name</string>
+    <string name="maiden_flight">Maiden Flight</string>
+    <string name="launch_cost">Launch cost</string>
+    <string name="description">Description</string>
+    <string name="dummy_name">falcon</string>
+    <string name="dummy_maiden_flight">2018-05-11</string>
+    <string name="dummy_launch_cost">$52.000.000</string>
+    <string name="dummy_desc">Falcon 9 is a two-stage rocket designed and manufactured by SpaceX for the reliable and safe transport of satellites and the Dragon spacecraft into orbit. The Block 5 variant is the fifth major interval aimed at improving upon the ability for rapid reusability.</string>
 </resources>

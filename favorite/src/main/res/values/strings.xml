@@ -1,5 +1,9 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_data">No data</string>
+    <string name="search_button" tools:ignore="ExtraTranslation">search button</string>
+    <string name="search">search</string>
+    <string name="bookmarked_launch">Bookmarked Launch</string>
+    <string name="favorite_image_bg">favorite image bg</string>
 </resources>

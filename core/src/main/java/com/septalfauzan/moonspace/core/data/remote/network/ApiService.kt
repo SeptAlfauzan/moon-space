@@ -7,9 +7,9 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
-    @GET("launch/upcoming")
+    @GET("2.2.0/launch/upcoming")
     suspend fun getUpComing(@Query("format") format: String = "json") : GetUpcomingLaunchResponse
 
-    @GET("launch/{id}")
+    @GET("2.2.0/launch/{id}")
     suspend fun getDetailLaunch(@Path("id") id: String) : RocketLaunchItem
 }

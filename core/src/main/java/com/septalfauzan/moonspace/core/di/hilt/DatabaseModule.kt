@@ -11,6 +11,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 import javax.inject.Singleton
 
 @Module
@@ -19,15 +21,21 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideDatabase(@ApplicationContext context: Context): MoonSpaceDatabase = Room.databaseBuilder(
-        context,
-        MoonSpaceDatabase::class.java,
-        "moonspace.db",
-    ).fallbackToDestructiveMigration().build()
+    fun provideDatabase(@ApplicationContext context: Context): MoonSpaceDatabase {
+        val passphrase: ByteArray = SQLiteDatabase.getBytes("dicoding".toCharArray())
+        val factory = SupportFactory(passphrase)
+        return Room.databaseBuilder(
+            context,
+            MoonSpaceDatabase::class.java,
+            "moonspace.db",
+        ).fallbackToDestructiveMigration().openHelperFactory(factory).build()
+    }
 
     @Provides
-    fun upcomingLaunchDao(database: MoonSpaceDatabase): UpcomingLaunchDAO = database.upcomingLaunchDao()
+    fun upcomingLaunchDao(database: MoonSpaceDatabase): UpcomingLaunchDAO =
+        database.upcomingLaunchDao()
 
     @Provides
-    fun bookmarkLaunchDao(database: MoonSpaceDatabase): BookmarkLaunchDAO = database.bookmarkLaunchDao()
+    fun bookmarkLaunchDao(database: MoonSpaceDatabase): BookmarkLaunchDAO =
+        database.bookmarkLaunchDao()
 }

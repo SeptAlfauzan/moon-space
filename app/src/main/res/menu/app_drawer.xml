@@ -7,14 +7,14 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/baseline_home_24"
-            android:title="Home" />
+            android:title="@string/home" />
         <item
             android:id="@+id/nav_bookmark"
             android:icon="@drawable/baseline_bookmarks_24"
-            android:title="Bookmark" />
+            android:title="@string/bookmark" />
         <item
             android:id="@+id/nav_launch_location"
             android:icon="@drawable/baseline_location_on_24"
-            android:title="Launch location" />
+            android:title="@string/launch_location" />
     </group>
 </menu>

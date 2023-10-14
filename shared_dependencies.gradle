@@ -36,4 +36,7 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
+
+    implementation "net.zetetic:android-database-sqlcipher:4.4.0"
+    implementation "androidx.sqlite:sqlite-ktx:2.1.0"
 }

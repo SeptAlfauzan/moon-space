@@ -4,6 +4,10 @@ import androidx.lifecycle.*
 import com.septalfauzan.moonspace.core.data.Resource
 import com.septalfauzan.moonspace.core.domain.model.RocketLaunchSchedule
 import com.septalfauzan.moonspace.core.domain.usecase.IUpcomingLaunchUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class FavoriteViewModel(private val useCase: IUpcomingLaunchUseCase) : ViewModel() {
     private val _bookmarkedUpcomingRocketLaunch: MutableLiveData<Resource<List<RocketLaunchSchedule>>> =
@@ -11,9 +15,15 @@ class FavoriteViewModel(private val useCase: IUpcomingLaunchUseCase) : ViewModel
     val bookmarkedUpcomingRocketLaunch: LiveData<Resource<List<RocketLaunchSchedule>>> =
         _bookmarkedUpcomingRocketLaunch
 
-    fun getBookmarkedLaunches() =
-        useCase.getBookmarkedUpcomingLaunches().asLiveData()
-            .observeForever(bookmarkedUpcomingLaunchObserver)
+    fun getBookmarkedLaunches(){
+        viewModelScope.launch(Dispatchers.IO){
+            useCase.getBookmarkedUpcomingLaunches().catch { err ->
+                _bookmarkedUpcomingRocketLaunch.postValue(Resource.Error(err.message ?: "Error fetching bookmarked "))
+            }.collect{data ->
+                _bookmarkedUpcomingRocketLaunch.postValue(data)
+            }
+        }
+    }
 
     private val bookmarkedUpcomingLaunchObserver: Observer<com.septalfauzan.moonspace.core.data.Resource<List<RocketLaunchSchedule>>> =
         Observer {
@@ -27,8 +37,8 @@ class FavoriteViewModel(private val useCase: IUpcomingLaunchUseCase) : ViewModel
     fun updateBookmark(id: String) = useCase.updateBookmark(id)
 
 
-    override fun onCleared() {
-        super.onCleared()
-        _bookmarkedUpcomingRocketLaunch.removeObserver(bookmarkedUpcomingLaunchObserver)
-    }
+//    override fun onCleared() {
+//        super.onCleared()
+//        _bookmarkedUpcomingRocketLaunch.removeObserver(bookmarkedUpcomingLaunchObserver)
+//    }
 }

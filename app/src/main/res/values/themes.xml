@@ -15,5 +15,10 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <item name="android:windowActionBar">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+    </style>
+
+    <style name="Theme.MoonSpace.Drawer" parent="Theme.MoonSpace">
+        <item name="android:windowBackground">@null</item>
     </style>
 </resources>
