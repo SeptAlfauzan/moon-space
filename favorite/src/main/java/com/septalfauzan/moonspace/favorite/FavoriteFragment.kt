@@ -24,8 +24,6 @@ class FavoriteFragment : Fragment() {
     @Inject
     lateinit var factory: ViewModelFactory
     private var component: FavoriteComponent? = null
-
-
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
 
@@ -71,6 +69,9 @@ class FavoriteFragment : Fragment() {
                         if(it.data?.size == 0){
                             binding.messageText.visibility = View.VISIBLE
                             binding.messageText.text = getString(R.string.no_data)
+                            binding.emptyData.root.visibility = View.VISIBLE
+                        }else{
+                            binding.emptyData.root.visibility = View.INVISIBLE
                         }
                         rvAdapter.setData(it.data ?: listOf())
                     }
@@ -110,6 +111,12 @@ class FavoriteFragment : Fragment() {
         bundle.putString("id", id)
         intent.putExtras(bundle)
         startActivity(intent)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        component = null
     }
 }
 

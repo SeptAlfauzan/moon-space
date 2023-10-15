@@ -22,8 +22,9 @@ class HomeViewModel @Inject constructor(private val useCase: IUpcomingLaunchUseC
         _upcomingRocketLaunch
 
     fun getUpcomingLaunches() {
-        viewModelScope.launch(Dispatchers.IO){
+        viewModelScope.launch{
             useCase.getUpcomingLaunches().catch { err ->
+                Log.d("ERROR", "error: $err")
                 _upcomingRocketLaunch.postValue(Resource.Error(err.message ?: "error fetching data"))
             }.collect { data ->
                 _upcomingRocketLaunch.postValue(data)
@@ -40,9 +41,4 @@ class HomeViewModel @Inject constructor(private val useCase: IUpcomingLaunchUseC
         Observer {
             _upcomingRocketLaunch.postValue(it)
         }
-
-    override fun onCleared() {
-        super.onCleared()
-        _upcomingRocketLaunch.removeObserver(upcomingLaunchObserver)
-    }
 }

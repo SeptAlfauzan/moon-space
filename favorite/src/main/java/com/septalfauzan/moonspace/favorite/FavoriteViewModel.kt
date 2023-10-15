@@ -16,7 +16,7 @@ class FavoriteViewModel(private val useCase: IUpcomingLaunchUseCase) : ViewModel
         _bookmarkedUpcomingRocketLaunch
 
     fun getBookmarkedLaunches(){
-        viewModelScope.launch(Dispatchers.IO){
+        viewModelScope.launch{
             useCase.getBookmarkedUpcomingLaunches().catch { err ->
                 _bookmarkedUpcomingRocketLaunch.postValue(Resource.Error(err.message ?: "Error fetching bookmarked "))
             }.collect{data ->
@@ -35,10 +35,4 @@ class FavoriteViewModel(private val useCase: IUpcomingLaunchUseCase) : ViewModel
             .observeForever(bookmarkedUpcomingLaunchObserver)
 
     fun updateBookmark(id: String) = useCase.updateBookmark(id)
-
-
-//    override fun onCleared() {
-//        super.onCleared()
-//        _bookmarkedUpcomingRocketLaunch.removeObserver(bookmarkedUpcomingLaunchObserver)
-//    }
 }

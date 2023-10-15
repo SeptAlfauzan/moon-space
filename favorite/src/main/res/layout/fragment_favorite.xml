@@ -66,7 +66,7 @@
             <EditText
                 android:id="@+id/searchLaunched"
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
+                android:layout_height="48dp"
                 android:background="@drawable/rounded_edittext_bg"
                 android:ems="10"
                 android:hint="@string/search"
@@ -77,10 +77,10 @@
 
             <ImageButton
                 android:id="@+id/search_btn"
-                android:contentDescription="@string/search_button"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_gravity="end"
+                android:contentDescription="@string/search_button"
                 android:background="@drawable/circle_btn_bg"
                 android:src="@drawable/baseline_search_24" />
         </FrameLayout>
@@ -100,17 +100,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!--empty data (lottie and message text)-->
+        <include
+            android:id="@+id/empty_data"
+            layout="@layout/empty_data"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/messageText"
-            android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/no_data"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/rv_container"
+            android:textSize="12sp"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/empty_data" />
 
         <ProgressBar
             android:id="@+id/progressBar"

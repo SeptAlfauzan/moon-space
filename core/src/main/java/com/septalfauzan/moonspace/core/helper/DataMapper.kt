@@ -1,6 +1,5 @@
 package com.septalfauzan.moonspace.core.helper
 
-import android.util.Log
 import com.septalfauzan.moonspace.core.data.local.entity.UpcomingLaunchEntity
 import com.septalfauzan.moonspace.core.data.local.entity.UpcomingLaunchWithBookmarkStatus
 import com.septalfauzan.moonspace.core.data.remote.response.ProgramItem
@@ -16,7 +15,6 @@ object DataMapper {
     fun UpcomingLaunchWithBookmarkStatus.toRocketLaunchSchedule(): RocketLaunchSchedule = RocketLaunchSchedule(imageUrl = this.upcomingLaunch.image, id = this.upcomingLaunch.id, launchedAt = this.upcomingLaunch.windowStart, bookmarked = this.bookmark?.bookmarkedAt?.isNotEmpty() ?: false, name = this.upcomingLaunch.name, latitude = this.upcomingLaunch.latitude, longitude = this.upcomingLaunch.longitude)
 
     private fun Rocket.toRocketInfo() : RocketLaunchInfo? = this.configuration?.let { data ->
-        Log.d("TAG", "toRocketInfo: ${data.maidenFlight}")
         RocketLaunchInfo(spaceShipName = data.fullName ?: "-", maidenFlight = data.maidenFlight ?: "-", cost = data.launchCost ?: "-", desc = data.description ?: "-")
     }
 

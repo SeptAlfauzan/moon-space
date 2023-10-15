@@ -15,7 +15,6 @@ class ScheduleAdapter : RecyclerView.Adapter<ScheduleAdapter.ListViewHolder>() {
     var bookmarkClicked: (String) -> Unit = {}
 
     fun setData(newData: List<RocketLaunchSchedule>){
-        if(newData == null) return
         listData = newData
         notifyDataSetChanged()
     }

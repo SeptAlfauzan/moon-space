@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,13 +16,13 @@ import com.septalfauzan.moonspace.core.presentation.ui.ScheduleAdapter
 import com.septalfauzan.moonspace.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.navigation.fragment.findNavController
+import com.septalfauzan.moonspace.core.data.Resource
+import com.septalfauzan.moonspace.core.domain.model.RocketLaunchSchedule
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity == null) return
-        val homeViewModel: HomeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+        val homeViewModel: HomeViewModel by viewModels()
         val rvAdapter = ScheduleAdapter()
         with(binding.rvContainer) {
             layoutManager = LinearLayoutManager(context)
@@ -46,28 +46,7 @@ class HomeFragment : Fragment() {
 
         homeViewModel.getUpcomingLaunches()
         homeViewModel.upcomingRocketLaunch.observe(viewLifecycleOwner) {
-            if (it != null) {
-                when (it) {
-                    is com.septalfauzan.moonspace.core.data.Resource.Loading ->{
-                        binding.progressBar.visibility = View.VISIBLE
-                        binding.messageText.visibility = View.INVISIBLE
-                    }
-                    is com.septalfauzan.moonspace.core.data.Resource.Error ->{
-                        binding.progressBar.visibility = View.INVISIBLE
-                        binding.messageText.visibility = View.VISIBLE
-                        binding.messageText.text = it.message
-                    }
-                    is com.septalfauzan.moonspace.core.data.Resource.Success -> {
-                        binding.progressBar.visibility = View.INVISIBLE
-                        binding.messageText.visibility = View.INVISIBLE
-                        if(it.data?.size == 0){
-                            binding.messageText.visibility = View.VISIBLE
-                            binding.messageText.text = getString(R.string.no_data)
-                        }
-                        rvAdapter.setData(it.data ?: listOf())
-                    }
-                }
-            }
+            handleShowData(rvAdapter, it)
         }
         rvAdapter.onClick = { id -> navigateToDetail(id, findNavController()) }
         rvAdapter.bookmarkClicked = { id -> homeViewModel.updateBookmark(id) }
@@ -79,6 +58,39 @@ class HomeFragment : Fragment() {
         })
     }
 
+    private fun handleShowData(
+        rvAdapter: ScheduleAdapter,
+        resource: Resource<List<RocketLaunchSchedule>>?
+    ) {
+        if (resource != null) {
+            when (resource) {
+                is Resource.Loading ->{
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.messageText.visibility = View.INVISIBLE
+                    binding.emptyData.root.visibility = View.INVISIBLE
+                }
+                is Resource.Error ->{
+                    binding.progressBar.visibility = View.INVISIBLE
+                    binding.messageText.visibility = View.VISIBLE
+                    binding.emptyData.root.visibility = View.VISIBLE
+                    binding.messageText.text = resource.message
+                }
+                is Resource.Success -> {
+                    binding.progressBar.visibility = View.INVISIBLE
+                    binding.messageText.visibility = View.INVISIBLE
+                    if(resource.data?.size == 0){
+                        binding.messageText.visibility = View.VISIBLE
+                        binding.messageText.text = getString(R.string.no_data)
+                        binding.emptyData.root.visibility = View.VISIBLE
+                    }else{
+                        binding.emptyData.root.visibility = View.INVISIBLE
+                    }
+                    rvAdapter.setData(resource.data ?: listOf())
+                }
+            }
+        }
+    }
+
     private fun onInputSearchChange(onFilter: (String) -> Unit): TextWatcher =
         object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -87,9 +99,9 @@ class HomeFragment : Fragment() {
                 onFilter(s.toString())
         }
 
-    override fun onDestroy() {
-        super.onDestroy()
-//        homeViewModel = null
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
 

@@ -23,7 +23,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailFragment : Fragment(R.layout.fragment_detail) {
-    private val detailViewModel: DetailViewModel by viewModels()
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
@@ -40,6 +39,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         binding.detailContent.visibility = INVISIBLE
         if (activity == null) return
         val id = arguments?.getString("id") ?: "-"
+
+        val detailViewModel: DetailViewModel by viewModels()
         detailViewModel.getDetailLaunch(id).observe(viewLifecycleOwner) {
             if (it.data != null) {
                 when (it) {
@@ -91,5 +92,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
         binding.circularLoading.visibility = INVISIBLE
         binding.detailContent.visibility = VISIBLE
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
