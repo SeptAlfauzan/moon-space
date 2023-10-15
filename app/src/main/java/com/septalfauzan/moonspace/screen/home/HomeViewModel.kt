@@ -32,13 +32,19 @@ class HomeViewModel @Inject constructor(private val useCase: IUpcomingLaunchUseC
         }
     }
 
-    fun filterUpcomingLaunches(key: String) =
-        useCase.getFilteredUpcomingLaunches(key).asLiveData().observeForever(upcomingLaunchObserver)
+    fun filterUpcomingLaunches(key: String){
+        viewModelScope.launch {
+            useCase.getFilteredUpcomingLaunches(key).catch { err ->
+                _upcomingRocketLaunch.postValue(
+                    Resource.Error(
+                        err.message ?: "error when filtering data"
+                    )
+                )
+            }.collect { data ->
+                _upcomingRocketLaunch.postValue(data)
+            }
+        }
+    }
 
     fun updateBookmark(id: String) = useCase.updateBookmark(id)
-
-    private val upcomingLaunchObserver: Observer<com.septalfauzan.moonspace.core.data.Resource<List<RocketLaunchSchedule>>> =
-        Observer {
-            _upcomingRocketLaunch.postValue(it)
-        }
 }

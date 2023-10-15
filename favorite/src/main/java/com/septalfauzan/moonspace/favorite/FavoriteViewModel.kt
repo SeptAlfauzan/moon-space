@@ -24,15 +24,19 @@ class FavoriteViewModel(private val useCase: IUpcomingLaunchUseCase) : ViewModel
             }
         }
     }
-
-    private val bookmarkedUpcomingLaunchObserver: Observer<com.septalfauzan.moonspace.core.data.Resource<List<RocketLaunchSchedule>>> =
-        Observer {
-            _bookmarkedUpcomingRocketLaunch.postValue(it)
+    fun filterBookmarkedUpcomingLaunches(key: String){
+        viewModelScope.launch {
+            useCase.getFilteredBookmarkedUpcomingLaunches(key).catch { err ->
+                _bookmarkedUpcomingRocketLaunch.postValue(
+                    Resource.Error(
+                        err.message ?: "error when filtering data"
+                    )
+                )
+            }.collect { data ->
+                _bookmarkedUpcomingRocketLaunch.postValue(data)
+            }
         }
-
-    fun filterBookmarkedUpcomingLaunches(key: String) =
-        useCase.getFilteredBookmarkedUpcomingLaunches(key).asLiveData()
-            .observeForever(bookmarkedUpcomingLaunchObserver)
+    }
 
     fun updateBookmark(id: String) = useCase.updateBookmark(id)
 }
