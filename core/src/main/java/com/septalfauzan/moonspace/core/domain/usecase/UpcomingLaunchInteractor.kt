@@ -1,11 +1,11 @@
 package com.septalfauzan.moonspace.core.domain.usecase
 
 import com.septalfauzan.moonspace.core.domain.model.RocketLaunchSchedule
-import com.septalfauzan.moonspace.core.domain.repository.IRocketLaunchRepository
+import com.septalfauzan.moonspace.core.domain.repository.InterfaceRocketLaunchRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class UpcomingLaunchInteractor @Inject constructor(private val repository: IRocketLaunchRepository) : IUpcomingLaunchUseCase{
+class UpcomingLaunchInteractor @Inject constructor(private val repository: InterfaceRocketLaunchRepository) : InterfaceUpcomingLaunchUseCase{
     override fun getUpcomingLaunches(): Flow<com.septalfauzan.moonspace.core.data.Resource<List<RocketLaunchSchedule>>> = repository.getAllUpcomingLaunch()
     override fun getFilteredUpcomingLaunches(key: String): Flow<com.septalfauzan.moonspace.core.data.Resource<List<RocketLaunchSchedule>>> = repository.getFilteredUpcomingLaunch(key)
     override fun getBookmarkedUpcomingLaunches(): Flow<com.septalfauzan.moonspace.core.data.Resource<List<RocketLaunchSchedule>>> = repository.getAllBookmarkedUpcomingLaunch()

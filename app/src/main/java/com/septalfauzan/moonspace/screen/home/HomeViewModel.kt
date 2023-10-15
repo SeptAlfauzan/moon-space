@@ -4,17 +4,14 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.septalfauzan.moonspace.core.data.Resource
 import com.septalfauzan.moonspace.core.domain.model.RocketLaunchSchedule
-import com.septalfauzan.moonspace.core.domain.usecase.IUpcomingLaunchUseCase
+import com.septalfauzan.moonspace.core.domain.usecase.InterfaceUpcomingLaunchUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val useCase: IUpcomingLaunchUseCase) :
+class HomeViewModel @Inject constructor(private val useCase: InterfaceUpcomingLaunchUseCase) :
     ViewModel() {
     private val _upcomingRocketLaunch: MutableLiveData<com.septalfauzan.moonspace.core.data.Resource<List<RocketLaunchSchedule>>> =
         MutableLiveData()

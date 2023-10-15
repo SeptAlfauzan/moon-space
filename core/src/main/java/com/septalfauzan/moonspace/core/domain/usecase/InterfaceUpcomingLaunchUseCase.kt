@@ -1,10 +1,9 @@
 package com.septalfauzan.moonspace.core.domain.usecase
 
-import android.content.Context
 import com.septalfauzan.moonspace.core.domain.model.RocketLaunchSchedule
 import kotlinx.coroutines.flow.Flow
 
-interface IUpcomingLaunchUseCase {
+interface InterfaceUpcomingLaunchUseCase {
     fun getUpcomingLaunches(): Flow<com.septalfauzan.moonspace.core.data.Resource<List<RocketLaunchSchedule>>>
     fun getFilteredUpcomingLaunches(key: String): Flow<com.septalfauzan.moonspace.core.data.Resource<List<RocketLaunchSchedule>>>
     fun getBookmarkedUpcomingLaunches(): Flow<com.septalfauzan.moonspace.core.data.Resource<List<RocketLaunchSchedule>>>

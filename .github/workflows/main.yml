@@ -64,6 +64,9 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      - name: Run lint debug (codestyle)
+        run: ./gradlew lintDebug
+
       - name: Run instrumented tests
         uses: ReactiveCircus/android-emulator-runner@v2
         with:

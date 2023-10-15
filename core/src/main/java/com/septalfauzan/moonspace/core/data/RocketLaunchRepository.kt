@@ -1,17 +1,15 @@
 package com.septalfauzan.moonspace.core.data
 
-import android.content.Context
 import com.septalfauzan.moonspace.core.data.local.LocalDataSource
 import com.septalfauzan.moonspace.core.data.local.entity.BookmarkLaunchEntity
 import com.septalfauzan.moonspace.core.data.remote.RemoteDataSource
 import com.septalfauzan.moonspace.core.data.remote.network.ApiResponse
 import com.septalfauzan.moonspace.core.data.remote.response.RocketLaunchItem
 import com.septalfauzan.moonspace.core.domain.model.RocketLaunchSchedule
-import com.septalfauzan.moonspace.core.domain.repository.IRocketLaunchRepository
+import com.septalfauzan.moonspace.core.domain.repository.InterfaceRocketLaunchRepository
 import com.septalfauzan.moonspace.core.helper.DataMapper.toCompleteRocketLaunchSchedule
 import com.septalfauzan.moonspace.core.helper.DataMapper.toUpcomingLaunchEntity
 import com.septalfauzan.moonspace.core.helper.DataMapper.toRocketLaunchSchedules
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -25,7 +23,7 @@ import javax.inject.Singleton
 class RocketLaunchRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
-) : IRocketLaunchRepository {
+) : InterfaceRocketLaunchRepository {
     override fun getAllUpcomingLaunch(): Flow<Resource<List<RocketLaunchSchedule>>> =
         object : NetworkBoundResource<List<RocketLaunchSchedule>, List<RocketLaunchItem>>() {
             override fun loadFromDB(): Flow<List<RocketLaunchSchedule>> {

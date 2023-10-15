@@ -18,29 +18,34 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var toggle: ActionBarDrawerToggle
-    lateinit var navController: NavController
+
+
+    private var _binding: ActivityMainBinding? = null
+    private val binding: ActivityMainBinding get() = _binding!!
+    private var _toggle: ActionBarDrawerToggle? = null
+    private val toggle: ActionBarDrawerToggle get() = _toggle!!
+    private var _navController: NavController? = null
+    private val navController: NavController get() = _navController!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        toggle = ActionBarDrawerToggle(
+        _toggle = ActionBarDrawerToggle(
             this,
             binding.drawerLayout,
             R.string.navigation_drawer_open,
             R.string.navigation_drawer_close
         )
+
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         binding.navView.setNavigationItemSelectedListener(this)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        navController = findNavController(R.id.fragment_container)
+        _navController = findNavController(R.id.fragment_container)
 
         if (intent != null) {
             val bundle = intent.extras
@@ -75,5 +80,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _toggle = null
+        _navController = null
+        _binding = null
     }
 }

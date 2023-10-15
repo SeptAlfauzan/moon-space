@@ -3,13 +3,11 @@ package com.septalfauzan.moonspace.favorite
 import androidx.lifecycle.*
 import com.septalfauzan.moonspace.core.data.Resource
 import com.septalfauzan.moonspace.core.domain.model.RocketLaunchSchedule
-import com.septalfauzan.moonspace.core.domain.usecase.IUpcomingLaunchUseCase
-import kotlinx.coroutines.Dispatchers
+import com.septalfauzan.moonspace.core.domain.usecase.InterfaceUpcomingLaunchUseCase
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class FavoriteViewModel(private val useCase: IUpcomingLaunchUseCase) : ViewModel() {
+class FavoriteViewModel(private val useCase: InterfaceUpcomingLaunchUseCase) : ViewModel() {
     private val _bookmarkedUpcomingRocketLaunch: MutableLiveData<Resource<List<RocketLaunchSchedule>>> =
         MutableLiveData()
     val bookmarkedUpcomingRocketLaunch: LiveData<Resource<List<RocketLaunchSchedule>>> =
