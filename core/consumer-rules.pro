@@ -77,9 +77,7 @@ public *;
 -keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder {
 *** rewind();
 }
--keep public class kotlin.
-
-#to prevent test class being obsuficated
+-keep public class kotlin.**
 -keep class androidx.test.** { *; }
 
 # Uncomment for DexGuard only

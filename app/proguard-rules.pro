@@ -78,8 +78,15 @@ public *;
 *** rewind();
 }
 -keep public class kotlin.**
-#to prevent test class being obsuficated
 -keep class androidx.test.** { *; }
+
+# Keep the App Startup Library classes
+-keep class androidx.startup.** { *; }
+
+# Keep the App Startup Library resources
+-keepclassmembers class androidx.startup.** {
+    public static <fields>;
+}
 # Uncomment for DexGuard only
 #-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
