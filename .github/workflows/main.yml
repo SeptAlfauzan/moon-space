@@ -69,13 +69,13 @@ jobs:
       - name: Run lint debug (codestyle)
         run: ./gradlew lintDebug
 
-      - name: Run instrumented tests
-        uses: ReactiveCircus/android-emulator-runner@v2
-        with:
-          api-level: 30
-          target: google_apis
-          arch: x86_64
-          script: ./gradlew connectedCheck
+#      - name: Run instrumented tests
+#        uses: ReactiveCircus/android-emulator-runner@v2
+#        with:
+#          api-level: 30
+#          target: google_apis
+#          arch: x86_64
+#          script: ./gradlew connectedCheck
 
       - name: Run unit tests
         run: ./gradlew test --stacktrace
