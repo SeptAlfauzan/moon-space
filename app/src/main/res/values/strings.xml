@@ -3,8 +3,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="navigation_drawer_open">Open navbar</string>
     <string name="navigation_drawer_close">Close navbar</string>
-    <string name="title_launchedmap">Launched Map</string>
-    <string name="title_favorite">Favorite</string>
     <string name="no_data">No Data</string>
     <string name="search_button">search_button</string>
     <string name="image_rocket_bg">image rocket bg</string>

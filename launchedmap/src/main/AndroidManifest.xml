@@ -7,7 +7,7 @@
 
     <dist:module
         dist:instant="false"
-        dist:title="@string/title_launchedmap">
+        dist:title="@string/title_launched_map">
         <dist:delivery>
             <dist:install-time />
         </dist:delivery>

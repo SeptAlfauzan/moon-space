@@ -9,7 +9,6 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "upcoming_launch")
 data class UpcomingLaunchEntity(
     @PrimaryKey
-    @NonNull
     @ColumnInfo(name = "id")
     val id: String,
 

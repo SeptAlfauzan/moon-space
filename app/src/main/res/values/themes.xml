@@ -19,6 +19,8 @@
     </style>
 
     <style name="Theme.MoonSpace.Drawer" parent="Theme.MoonSpace">
-        <item name="android:windowBackground">@null</item>
+        <item name="android:background">@color/purple_700</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 </resources>

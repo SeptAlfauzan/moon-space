@@ -90,7 +90,7 @@ class MapsFragment : Fragment() {
         try {
             val drawable = ResourcesCompat.getDrawable(
                 resources,
-                com.septalfauzan.moonspace.core.R.drawable.baseline_rocket_24,
+                R.drawable.baseline_rocket_24,
                 null
             )
 

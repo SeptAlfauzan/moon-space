@@ -11,7 +11,6 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "bookmark")
 data class BookmarkLaunchEntity(
     @PrimaryKey
-    @NonNull
     @ColumnInfo(name = "launch_id")
     val launchId: String,
 
